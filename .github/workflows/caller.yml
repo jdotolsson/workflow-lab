@@ -14,10 +14,17 @@ on:
           - Prod
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ffffff
+        run: |
+          ${{ github.event.inputs.environment }}
+
   build-and-deploy:
     uses: ./.github/workflows/called.yml
     with:
-      environment: ${{ (github.event.inputs.environment == '' && 'NonProd') || 'inputs.environment' }}
+      environment: ${{ (github.event.inputs.environment == '' && 'NonProd') || 'github.event.inputs.environment' }}
     #This is a very unintuitive way of getting the Azure Credentials because the environment is
     #defined in the 'called' workflow, but the secret is passed from the 'caller' workflow.
     #Issue: https://github.com/actions/runner/issues/1490
