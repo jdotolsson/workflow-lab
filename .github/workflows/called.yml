@@ -1,0 +1,31 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "The environment to publish the module"
+        required: true
+        type: string
+    secrets:
+      MY_SECRET:
+        required: true
+
+  workflow_call:
+    inputs:
+      environment:
+        description: "The environment to publish the module"
+        required: true
+        type: string
+    secrets:
+      AZURE_CREDENTIALS:
+        required: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get Version
+        id: version
+        run: |
+          env

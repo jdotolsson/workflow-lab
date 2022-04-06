@@ -1,0 +1,25 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Azure Subscription Environment to use
+        type: choice
+        required: true
+        default: NonProd
+        options:
+          - NonProd
+          - Prod
+
+jobs:
+  build-and-deploy:
+    uses: ./.github/workflows/called.yml
+    with:
+      environment: ${{ (github.event.inputs.environment == '' && 'CAB-CoreHosting-NonProd') || 'github.event.inputs.environment' }}
+    #This is a very unintuitive way of getting the Azure Credentials because the environment is
+    #defined in the 'called' workflow, but the secret is passed from the 'caller' workflow.
+    #Issue: https://github.com/actions/runner/issues/1490
+    secrets:
+      MY_SECRET: ${{ secrets.MY_SECRET }}
