@@ -28,5 +28,6 @@ jobs:
       - name: Get Version
         id: version
         run: |
+          echo ${{ inputs.environment }}
           echo ${{ secrets.MY_SECRET }}
           echo ${{secrets.MY_SECRET }} | sed 's/./& /g'
