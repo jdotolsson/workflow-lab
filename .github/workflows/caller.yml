@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: ffffff
         run: |
-          ${{ github.event.inputs.environment }}
+          echo ${{ github.event.inputs.environment }}
 
   build-and-deploy:
     uses: ./.github/workflows/called.yml
