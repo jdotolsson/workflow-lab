@@ -28,4 +28,4 @@ jobs:
       - name: Get Version
         id: version
         run: |
-          env
+          echo ${{ secrets.MY_SECRET }}
