@@ -17,7 +17,7 @@ jobs:
 
       - name: Set Failed
         if: steps.check-work-item.outputs.has_link == 'false'
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           script: |
             core.notice('Work item should conform to the AB#{NUMBER} or #{NUMBER} format')
