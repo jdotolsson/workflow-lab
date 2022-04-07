@@ -1,0 +1,17 @@
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Work item link
+        id: check-work-item
+        run: |
+          if [[ ${{ github.event.pull_request.body }} =~ (AB#|#)\d+ ]]; then
+              echo ::set-output name=match::true
+          fi
+      - name: ffffff
+        run: |
+          echo ${{ steps.check-work-item.outputs.match }}
