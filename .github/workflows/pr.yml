@@ -21,4 +21,4 @@ jobs:
         with:
           script: |
             core.notice('Work item should conform to the AB#{NUMBER} or #{NUMBER} format')
-            core.error('Work item should be linked')
+            core.setFailed('Work item should be linked')
