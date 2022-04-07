@@ -10,8 +10,12 @@ jobs:
         id: check-work-item
         run: |
           if ! [[ '${{ github.event.pull_request.body }}' =~ '(AB#|#)\d+' ]]; then
-              echo fail
+              echo ::set-output has_link=::false
           fi
-      - name: ffffff
-        run: |
-          echo ${{ steps.check-work-item.outputs.match }}
+
+      - name: ddd
+        if: steps.check-tag.outputs.has_link == 'false'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('envA and envB are not equivalent!')
