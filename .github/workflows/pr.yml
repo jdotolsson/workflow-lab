@@ -1,3 +1,5 @@
+name: Work item should be linked
+
 on:
   pull_request:
     types: [opened, edited, synchronize]
