@@ -9,7 +9,7 @@ jobs:
       - name: Check Work item link
         id: check-work-item
         run: |
-          if [[ '${{ github.event.pull_request.body }}' !=~ '(AB#|#)\d+' ]]; then
+          if ! [[ '${{ github.event.pull_request.body }}' =~ '(AB#|#)\d+' ]]; then
               echo fail
           fi
       - name: ffffff
