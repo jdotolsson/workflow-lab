@@ -15,9 +15,10 @@ jobs:
               echo ::set-output name=has_link::false
           fi
 
-      - name: ddd
+      - name: Set Failed
         if: steps.check-work-item.outputs.has_link == 'false'
         uses: actions/github-script@v3
         with:
           script: |
-            core.setFailed('envA and envB are not equivalent!')
+            core.notice('Work item should conform to the AB#{NUMBER} or #{NUMBER} format')
+            core.error('Work item should be linked')
