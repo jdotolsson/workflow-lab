@@ -11,7 +11,7 @@ jobs:
       - name: Check Work item link
         id: check-work-item
         run: |
-          s='(AB#|#)\d+'
+          s='AB#213324'
           if ! [[ '${{ github.event.pull_request.body }}' =~ $s ]]; then
               echo hello
               echo ::set-output name=has_link::false
