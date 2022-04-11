@@ -12,6 +12,7 @@ jobs:
         id: check-work-item
         run: |
           if ! [[ '${{ github.event.pull_request.body }}' =~ AB#\d+|#\d+ ]]; then
+              echo hello
               echo ::set-output name=has_link::false
           fi
 
