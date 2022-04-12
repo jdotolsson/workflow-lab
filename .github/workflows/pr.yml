@@ -10,12 +10,14 @@ jobs:
     steps:
       - name: Check Work item link
         id: check-work-item
+        shell: pwsh
         run: |
-          s='AB#213324'
-          if ! [[ '${{ github.event.pull_request.body }}' =~ $s ]]; then
-              echo hello
-              echo ::set-output name=has_link::false
-          fi
+          $pattern = "((AB#|#)\d+)\b"
+          if ("${{ github.event.pull_request.body }}" -notmatch $pattern)
+          {
+              Write-Host "Pull Request body does not match regex pattern: $pattern"
+              Write-Host ::set-output name=has_link::false
+          }
 
       - name: Set Failed
         if: steps.check-work-item.outputs.has_link == 'false'
