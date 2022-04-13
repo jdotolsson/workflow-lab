@@ -14,7 +14,7 @@ jobs:
         run: |
           $pattern = "((AB#|#)\d+)\b"
           $text = @"
-          `${{ github.event.pull_request.body }}`
+          $${{ github.event.pull_request.body }}
           "@
           if ($text -notmatch $pattern)
           {
