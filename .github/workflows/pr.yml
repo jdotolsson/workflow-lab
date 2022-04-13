@@ -13,7 +13,8 @@ jobs:
         shell: pwsh
         run: |
           $pattern = "((AB#|#)\d+)\b"
-          if ("${{ github.event.pull_request.body }}" -notmatch $pattern)
+          $text = @"${{ github.event.pull_request.body }}"
+          if ($text -notmatch $pattern)
           {
               Write-Host "Pull Request body does not match regex pattern: $pattern"
               Write-Host ::set-output name=has_link::false
