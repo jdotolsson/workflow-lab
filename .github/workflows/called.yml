@@ -47,8 +47,9 @@ jobs:
           Write-Host "Found '$($bicepModules.length)' modules"
 
           $compressedJson = ConvertTo-Json -InputObject $bicepModules -Compress
-          Write-Host "::set-output name=modules::$compressedJson"
-          Write-Host $compressedJson
+          $json = ${{ toJSON($bicepModules) }}
+          Write-Host "::set-output name=modules::$json"
+          Write-Host $json
 
       - name: gd
         shell: pwsh
