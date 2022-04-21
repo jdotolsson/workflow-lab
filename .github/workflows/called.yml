@@ -50,6 +50,15 @@ jobs:
           Write-Host "::set-output name=modules::$compressedJson"
           Write-Host $compressedJson
 
+      - name: gd
+        shell: pwsh
+        run: |
+          $json = '${{ steps.gather-versions.outputs.modules }}'
+          [array]$modules = ConvertFrom-Json -InputObject $json
+
+          Write-Host $json
+          Write-Host $modules[0].file
+
       - name: Create report file
         run: date +%s > report.txt
 
