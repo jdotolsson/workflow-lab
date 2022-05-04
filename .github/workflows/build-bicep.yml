@@ -1,0 +1,28 @@
+name: ResourceGroup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build-bicep.yml"
+  pull_request:
+    paths:
+      - ".github/workflows/build-bicep.yml"
+  workflow_dispatch:
+    inputs:
+      bicepFolder:
+        description: "The bicep folder to search for .bicep files"
+        type: string
+        required: true
+
+      filePattern:
+        description: "The file pattern where to find .bicep files"
+        type: string
+        required: true
+
+jobs:
+  build:
+    uses: ./.github/actions/build/bicep/v1/build-bicep.yml
+    with:
+      folder: ./bicep
+      filePattern: main.bicep
