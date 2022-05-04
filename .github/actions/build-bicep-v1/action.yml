@@ -21,7 +21,7 @@ runs:
       shell: pwsh
       working-directory: ${{ inputs.folder }}
       run: |
-        Get-ChildItem -Filter ${{ parameters.filePattern }} |
+        Get-ChildItem -Filter ${{ inputs.filePattern }} |
         Foreach-Object {
           az bicep build --file $_.FullName
         }
