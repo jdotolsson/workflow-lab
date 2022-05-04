@@ -25,9 +25,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - uses: ./.github/actions/build-bicep-v1/action.yml
+      - uses: ./.github/actions/build-bicep-v1
         with:
           folder: ./bicep
           filePattern: main.bicep
