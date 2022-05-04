@@ -22,7 +22,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/actions/build/bicep/v1/build-bicep.yml
+    uses: ./.github/actions/build/bicep/v1/build-bicep.yml@main
     with:
       folder: ./bicep
       filePattern: main.bicep
