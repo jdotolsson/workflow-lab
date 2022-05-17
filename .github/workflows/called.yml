@@ -81,3 +81,4 @@ jobs:
           add: "*workflow.trigger"
           default_author: github_actions
           pull: "--rebase --autostash"
+          push: "origin main -f"
