@@ -30,3 +30,4 @@ jobs:
     #Issue: https://github.com/actions/runner/issues/1490
     secrets:
       MY_SECRET: ${{ secrets.MY_SECRET }}
+      BYPASS_PAT: ${{ secrets.BYPASS_PAT }}
