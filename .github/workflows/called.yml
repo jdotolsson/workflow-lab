@@ -63,8 +63,11 @@ jobs:
       - name: Create report file
         shell: pwsh
         run: |
-          mkdir test -f
-          Get-Date | Out-File -FilePath "test/report.txt"
+          $path = "test"
+          if(-not (test-path $path)){
+            New-Item -Path $path -ItemType Directory
+          }
+          Get-Date | Out-File -FilePath "$path/report.txt"
 
       - uses: EndBug/add-and-commit@v9
         with:
