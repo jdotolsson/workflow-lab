@@ -76,9 +76,21 @@ jobs:
           }
           Get-Date | Out-File -FilePath "$path/workflow.trigger"
 
-      - uses: EndBug/add-and-commit@v9
-        with:
-          add: "*workflow.trigger"
-          default_author: github_actions
-          pull: "--rebase --autostash"
-          push: "origin main -f"
+      - name: Push workflow.triggers
+        shell: pwsh
+        run: |
+          git status
+
+          Write-Host ${{ GITHUB_ACTIONS }}
+
+          git pull --rebase --autostash
+          git add "*workflow.trigger"
+          git commit -m "Commit from GitHub Actions (${{ GITHUB_EVENT_PATH }})" --author "${{ GITHUB_ACTIONS }}"
+          git push HEAD:main
+
+      # - uses: EndBug/add-and-commit@v9
+      #   with:
+      #     add: "*workflow.trigger"
+      #     default_author: github_actions
+      #     pull: "--rebase --autostash"
+      #     push: "origin HEAD:${{ github.head_ref }}"
