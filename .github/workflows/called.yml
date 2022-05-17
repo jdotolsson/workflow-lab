@@ -60,9 +60,10 @@ jobs:
           Write-Host $json
           Write-Host $modules[0].file
 
-      # - name: Create report file
-      #   run: date +%s > report.txt
+      - name: Create report file
+        run: date +%s > report.txt
 
-      # - uses: EndBug/add-and-commit@v9
-      #   with:
-      #     default_author: github_actions
+      - uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          pull: "--rebase --autostash"
