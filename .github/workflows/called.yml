@@ -81,11 +81,14 @@ jobs:
         run: |
           git status
 
-          Write-Host ${{ GITHUB_ACTIONS }}
+          Write-Host ${{ github.actions }}
+          Write-Host $Env:GITHUB_ACTIONS
+          Write-Host ${{ github.EVENT_PATH }}
+          Write-Host $Env:GITHUB_EVENT_PATH
 
           git pull --rebase --autostash
           git add "*workflow.trigger"
-          git commit -m "Commit from GitHub Actions (${{ GITHUB_EVENT_PATH }})" --author "${{ GITHUB_ACTIONS }}"
+          git commit -m "Commit from GitHub Actions (${{ github.EVENT_PATH }})" --author "${{ github.actions }}"
           git push HEAD:main
 
       # - uses: EndBug/add-and-commit@v9
