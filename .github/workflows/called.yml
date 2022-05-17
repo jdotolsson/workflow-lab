@@ -32,33 +32,33 @@ jobs:
           echo ${{ secrets.MY_SECRET }}
           echo ${{secrets.MY_SECRET }} | sed 's/./& /g'
 
-      - name: Gather module versions
-        id: gather-versions
-        shell: pwsh
-        run: |
-          $versionPattern = "v[0-9]{4}-[0-9]{2}-[0-9]{2}"
-          $files = @("C:/hej/v2022-04-21/main.bicep")
-          [array]$bicepModules = $files `
-            | ForEach-Object -Process {
-              @{
-                file = $_
-                version = ($_ | Select-String -Pattern $versionPattern).Matches.Value}
-              }
-          Write-Host "Found '$($bicepModules.length)' modules"
+      # - name: Gather module versions
+      #   id: gather-versions
+      #   shell: pwsh
+      #   run: |
+      #     $versionPattern = "v[0-9]{4}-[0-9]{2}-[0-9]{2}"
+      #     $files = @("C:/hej/v2022-04-21/main.bicep")
+      #     [array]$bicepModules = $files `
+      #       | ForEach-Object -Process {
+      #         @{
+      #           file = $_
+      #           version = ($_ | Select-String -Pattern $versionPattern).Matches.Value}
+      #         }
+      #     Write-Host "Found '$($bicepModules.length)' modules"
 
-          $compressedJson = ConvertTo-Json -InputObject $bicepModules -Compress
-          $json = ${{ toJSON($bicepModules) }}
-          Write-Host "::set-output name=modules::$json"
-          Write-Host $json
+      #     $compressedJson = ConvertTo-Json -InputObject $bicepModules -Compress
+      #     $json = ${{ toJSON($bicepModules) }}
+      #     Write-Host "::set-output name=modules::$json"
+      #     Write-Host $json
 
-      - name: gd
-        shell: pwsh
-        run: |
-          $json = '${{ steps.gather-versions.outputs.modules }}'
-          [array]$modules = ConvertFrom-Json -InputObject $json
+      # - name: gd
+      #   shell: pwsh
+      #   run: |
+      #     $json = '${{ steps.gather-versions.outputs.modules }}'
+      #     [array]$modules = ConvertFrom-Json -InputObject $json
 
-          Write-Host $json
-          Write-Host $modules[0].file
+      #     Write-Host $json
+      #     Write-Host $modules[0].file
 
       - name: Create report file
         run: date +%s > report.txt
