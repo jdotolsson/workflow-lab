@@ -84,11 +84,12 @@ jobs:
           Write-Host ${{ github.actions }}
           Write-Host $Env:GITHUB_ACTIONS
           Write-Host ${{ github.EVENT_PATH }}
+          Write-Host ${{ github.event_name }}
           Write-Host $Env:GITHUB_EVENT_PATH
 
           git pull --rebase --autostash
           git add "*workflow.trigger"
-          git commit -m "Commit from GitHub Actions (${{ github.EVENT_PATH }})" --author "${{ github.actions }}"
+          git commit -m "Commit from GitHub Actions (${{ github.event_name }})" --author="github-actions[bot] <42103905+github-actions[bot]@users.noreply.github.com>"
           git push HEAD:main
 
       # - uses: EndBug/add-and-commit@v9
