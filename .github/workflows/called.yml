@@ -87,7 +87,7 @@ jobs:
           git pull --rebase --autostash
           git add "*workflow.trigger"
           git commit -m "Commit from GitHub Actions (${{ github.workflow }})"
-          git push HEAD:main
+          git push origin main
 
       # - uses: EndBug/add-and-commit@v9
       #   with:
