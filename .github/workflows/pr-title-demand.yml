@@ -26,6 +26,8 @@ jobs:
           '@
           if ($prTitle -notMatch $pattern)
           {
+              
+              Write-Host "Pull Request Title does not contain '$($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED)'"
               Write-Host ::set-output name=has_correct_title::false
           }
 
