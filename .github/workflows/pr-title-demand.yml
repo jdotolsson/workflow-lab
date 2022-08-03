@@ -27,7 +27,6 @@ jobs:
           "
           if ($prTitle -notMatch $pattern)
           {
-              Write-Host "Pull Request Title does not contain "
               Write-Host ::set-output name=has_correct_title::false
           }
 
