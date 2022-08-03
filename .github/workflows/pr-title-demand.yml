@@ -24,7 +24,6 @@ jobs:
           $prTitle = @'
           ${{ github.event.pull_request.title }}
           '@
-          "
           if ($prTitle -notMatch $pattern)
           {
               Write-Host ::set-output name=has_correct_title::false
