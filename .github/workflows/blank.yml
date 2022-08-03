@@ -1,0 +1,36 @@
+name: Demand title on Migration PR
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+    paths:
+      - "Migration/**" # Folder where EF Migration is
+
+env:
+  WORD_TO_LOOK_FOR: Migration
+
+jobs:
+  check-title-on-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR Title
+        id: check-title
+        shell: pwsh
+        run: |
+          $wordToLookFor = "$env:Environment"
+          $prTitle = @'
+          ${{ github.event.pull_request.title }}
+          '@
+          if ($prTitle -like $wordToLookFor)
+          {
+              Write-Host "Pull Request Title does not contain '$wordToLookFor'"
+              Write-Host ::set-output name=has_correct_title::false
+          }
+
+      - name: Set Failed
+        if: steps.check-title.outputs.has_correct_title == 'false'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.notice("PR Title should contain word '${{ env.WORD_TO_LOOK_FOR}}'")
+            core.setFailed("PR Title should contain word '${{ env.WORD_TO_LOOK_FOR}}'")
