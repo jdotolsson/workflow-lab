@@ -18,17 +18,17 @@ jobs:
         shell: pwsh
         run: |
           $wordsToLookFor = $($($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED) -split ',\s*') -join "|"
-          Write-Host $wordsToLookFor
+          Write-Host "$wordsToLookFor"
           $pattern = "($wordsToLookFor)\b"
-          Write-Host $pattern
+          Write-Host "$pattern"
           $prTitle = @'
           ${{ github.event.pull_request.title }}
           '@
           "
-          Write-Host $prTitle
+          Write-Host "$prTitle"
           if ($prTitle -notMatch $pattern)
           {
-              # Write-Host "Pull Request Title does not contain '$($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED)'"
+              Write-Host "Pull Request Title does not contain '$($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED)'"
               Write-Host ::set-output name=has_correct_title::false
           }
 
