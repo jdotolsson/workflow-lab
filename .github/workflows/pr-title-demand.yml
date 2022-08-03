@@ -17,7 +17,7 @@ jobs:
         id: check-title
         shell: pwsh
         run: |
-          $wordsToLookFor = $($($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED) -split ',\s*') -join "|"
+          $wordsToLookFor = $("$($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED)" -split ',\s*') -join "|"
           Write-Host "$wordsToLookFor"
           $pattern = "($wordsToLookFor)\b"
           Write-Host "$pattern"
