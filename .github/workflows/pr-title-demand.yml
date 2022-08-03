@@ -18,7 +18,7 @@ jobs:
         shell: pwsh
         run: |
           $wordsToLookFor = $($($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED) -split ',\s*') -join "|"
-          $pattern = "($wordsToLookFor)\b"
+          $pattern = "^($wordsToLookFor)\b"
           $prTitle = @'
           ${{ github.event.pull_request.title }}
           '@
