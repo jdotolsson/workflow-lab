@@ -1,0 +1,37 @@
+name: Demand title on Migration PR
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+    paths:
+      - "Migration/**" # Folder where EF Migration is
+
+env:
+  WORDS_TO_LOOK_FOR_COMMA_SEPARATED: "Migration, Some Other String"
+
+jobs:
+  check-title-on-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR Title
+        id: check-title
+        shell: pwsh
+        run: |
+          $wordsToLookFor = $($($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED) -split ',\s*') -join "|"
+          $pattern = "^($wordsToLookFor)\b"
+          $prTitle = @'
+          ${{ github.event.pull_request.title }}
+          '@
+          if ($prTitle -notMatch $pattern)
+          {              
+              Write-Host "Pull Request Title does not contain any of '$($env:WORDS_TO_LOOK_FOR_COMMA_SEPARATED)'"
+              Write-Host ::set-output name=has_correct_title::false
+          }
+
+      - name: Set Failed
+        if: steps.check-title.outputs.has_correct_title == 'false'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.notice("PR Title should contain word '${{ env.WORDS_TO_LOOK_FOR_COMMA_SEPARATED}}'")
+            core.setFailed("PR Title should contain word '${{ env.WORDS_TO_LOOK_FOR_COMMA_SEPARATED}}'")
