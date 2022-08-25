@@ -18,13 +18,12 @@ jobs:
         run: "& .github/workflows/matrix.ps1 -needs matrix -environments dev,test,qa -github_environment corehosting-nonprod"
 
   run-matrix:
+    needs: [matrix]
     strategy:
       max-parallel: 1
-      fail-fast: false
       matrix:
-        include: ${{ fromJson(needs.matrix.outputs.matrix) }}
-    needs: [matrix]
-    name: "${{ matrix.job_name }}"
+        environment: [dev, test, qa]
+    name: "Deploy ${{ matrix.environment }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
