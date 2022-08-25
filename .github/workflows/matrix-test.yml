@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         include: ${{ fromJson(needs.matrix.outputs.matrix) }}
-    needs: ${{ matrix.needs }}
+    needs: [matrix]
     name: "${{ matrix.job_name }}"
     runs-on: ubuntu-latest
     steps:
