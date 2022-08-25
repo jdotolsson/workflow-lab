@@ -30,4 +30,8 @@ jobs:
       - name: Run Command
         shell: pwsh
         run: |
+          if("${{ matrix.environment }}" -eq 'test')
+          {
+            exit 1
+          }
           Write-Host "Run '${{ matrix.environment }}'"
