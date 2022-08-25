@@ -1,0 +1,34 @@
+name: Matrix test
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  matrix:
+    name: Generate test matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix-json: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: set-matrix
+        shell: pwsh
+        # Use a small PowerShell script to generate the test matrix
+        run: "& .github/workflows/matrix.ps1 -needs matrix -environments dev,test,qa -github_environment corehosting-nonprod"
+
+  run-matrix:
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.matrix.outputs.matrix) }}
+    needs: ${{ matrix.needs }}
+    name: "${{ matrix.job_name }}"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Command
+        shell: pwsh
+        run: |
+          Write-Host "Run '${{ matrix.environment }}'"
