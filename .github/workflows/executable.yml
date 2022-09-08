@@ -15,3 +15,18 @@ jobs:
         working-directory: exe
         run: |
           . "./pwshCommand.ps1" -WorkingDirectory "./"
+      - name: run
+        shell: pwsh
+        working-directory: exe
+        run: |
+          pwsh "./pwshCommand.ps1" -WorkingDirectory "./"
+
+      - name: run
+        shell: pwsh
+        working-directory: exe
+        run: |
+          Set-Location $WorkingDirectory
+
+          $schemaFile = Get-ChildItem "./schema.json" | Select-Object -Expand FullName
+          $configFiles = (Get-ChildItem -Filter config.json -Recurse | Select-Object -Expand FullName) -join ","
+          & "./Automotive.JsonSchemaValidator.exe" $configFiles $schemaFile
