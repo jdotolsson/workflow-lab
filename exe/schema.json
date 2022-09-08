@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://automotive.appcs/appcs-schema.json",
+  "type": "object",
+  "title": "AppCs configuration",
+  "required": ["configs"],
+  "additionalProperties": false,
+  "properties": {
+    "configs": {
+      "type": "array",
+      "title": "Configurations",
+      "description": "The array of different configurations",
+      "items": {
+        "type": "object",
+        "required": ["name", "value", "labels"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "The name of the configuration",
+            "description": "The name of the configuration"
+          },
+          "labels": {
+            "type": ["array"],
+            "uniqueItems": true,
+            "title": "Labels of the configuration",
+            "description": "Labels of the configuration"
+          },
+          "value": {
+            "type": ["string", "object", "array"],
+            "title": "Configuration value",
+            "description": "Configuration value"
+          },
+          "tags": {
+            "type": ["object"],
+            "allOf": [
+              {
+                "type": "object"
+              },
+              {
+                "patternProperties": {
+                  "": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          "contentType": {
+            "type": "string",
+            "title": "Content type of configuration",
+            "description": "Content type of configuration"
+          }
+        },
+        "if": {
+          "properties": {
+            "value": {
+              "type": ["object", "array"]
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "contentType": {
+              "enum": ["application/json"]
+            },
+            "value": {
+              "type": "object",
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "patternProperties": {
+                    "": {
+                      "type": "string",
+                      "pattern": "^((?!vault\\.azure\\.net).)*$",
+                      "title": "Key Vault reference cannot be inside a json object.",
+                      "description": "Please extract to its own configuration property"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "else": {
+          "properties": {
+            "value": {
+              "type": ["string"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

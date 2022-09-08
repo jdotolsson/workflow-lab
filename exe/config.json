@@ -1,0 +1,13 @@
+{
+  "configs": [
+    {
+      "name": "Api",
+      "labels": ["cabas.bff.api"],
+      "value": {
+        "BaseAddress": "https://app-featuremanagement-backend-dev.azurewebsites.net/",
+        "ApiKey": "https://kv-au-config-nonprod.vault.azure.net/secrets/Cab-Feature-Management-Backend-ApiKey-Dev"
+      },
+      "contentType": "application/json"
+    }
+  ]
+}
