@@ -5,7 +5,7 @@ on:
 
 jobs:
   Executable:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
