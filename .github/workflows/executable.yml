@@ -14,4 +14,4 @@ jobs:
         shell: pwsh
         working-directory: exe
         run: |
-          & "./pwshCommand.ps1" -WorkingDirectory "./"
+          . "./pwshCommand.ps1" -WorkingDirectory "./"

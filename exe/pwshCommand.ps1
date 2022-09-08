@@ -7,6 +7,6 @@ param (
 
 Set-Location $WorkingDirectory
 
-$schemaFile = "./schema.json"
-$configFiles = (Get-ChildItem -Filter *.json -Recurse | Select-Object -Expand FullName) -join ","
+$schemaFile = Get-ChildItem "./schema.json" | Select-Object -Expand FullName
+$configFiles = (Get-ChildItem -Filter config.json -Recurse | Select-Object -Expand FullName) -join ","
 & "./Automotive.JsonSchemaValidator.exe" $configFiles $schemaFile
