@@ -25,10 +25,10 @@ jobs:
           $Headers = @{
             Authorization = "Bearer ${{ env.GITHUB_TOKEN }}"
             Accept = "application/vnd.github+json"
-          }
+          } | ConvertTo-Json
           $Body = @{
             event_type = "${{ env.EVENT }}"
-          }
+          } | ConvertTo-Json
           $props = @{
               Uri = 'https://api.github.com/repos/${{ env.ORG }}/${{ env.REPO }}/dispatches'
               Method = 'POST'
