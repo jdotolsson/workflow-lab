@@ -1,0 +1,12 @@
+on:
+  repository_dispatch:
+    types: [target-workflow]
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Yay
+        shell: pwsh
+        run: |
+          Write-Host "YAY!"
