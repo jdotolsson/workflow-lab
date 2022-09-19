@@ -22,18 +22,17 @@ jobs:
           ORG: jdotolsson
           REPO: workflow-lab
         run: |
+          $Uri = "https://api.github.com/repos/${{ env.ORG }}/${{ env.REPO }}/dispatches"
+
           $Headers = @{
             Authorization = "Bearer ${{ env.GITHUB_TOKEN }}"
             Accept = "application/vnd.github+json"
           }
-          $Body = @{
-            event_type = "${{ env.EVENT }}"
-          }
-          $Params  = @{
-              Uri = 'https://api.github.com/repos/${{ env.ORG }}/${{ env.REPO }}/dispatches'
-              Method = 'POST'
-              ContentType = 'application/json'
-              Body = $Body
-              Headers = $Headers
-          }
-          $Response = Invoke-RestMethod @Params
+
+          $Body = @'
+            { "event_type": "${{ env.EVENT }}" }
+          '@
+
+          $Response = Invoke-RestMethod -Uri $Uri -Method POST -Body $Body -Headers $Headers -ContentType 'application/json'
+
+          Write-Host $Response
