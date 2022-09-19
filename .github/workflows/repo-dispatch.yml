@@ -26,11 +26,14 @@ jobs:
             Authorization = "Bearer ${{ env.GITHUB_TOKEN }}"
             Accept = "application/vnd.github+json"
           }
+          $Body = @{
+            event_type = "${{ env.EVENT }}"
+          }
           $props = @{
               Uri = 'https://api.github.com/repos/${{ env.ORG }}/${{ env.REPO }}/dispatches'
               Method = 'POST'
               ContentType = 'application/json'
-              Body = '{\"event_type\": \"${{ env.EVENT }}\"}'
+              Body = $Body
               Headers = $Headers
           }
           $Response = Invoke-RestMethod @props
