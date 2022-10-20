@@ -27,6 +27,7 @@ jobs:
           ## Explanation
 
           Stuff
+
           "@
 
           echo "{report}={$report}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
