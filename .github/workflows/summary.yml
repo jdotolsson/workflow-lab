@@ -15,8 +15,6 @@ jobs:
           $report = @"
           # Service Bus consolidation
 
-          [Go to explication to understand these tables](##-Explanation)
-
           ## Topics
 
           | Topic Name  | Defined in configuration | Exist in Service bus | Service Bus Name |
