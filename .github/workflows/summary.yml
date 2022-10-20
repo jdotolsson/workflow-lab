@@ -29,7 +29,7 @@ jobs:
           Stuff
           "@
 
-          Write-Host "{report}={$report}" >> $GITHUB_OUTPUT
+          echo "{report}={$report}" >> $GITHUB_OUTPUT
 
       - name: Adding markdown
         run: echo '### Hello world! :rocket:' >> $GITHUB_STEP_SUMMARY
