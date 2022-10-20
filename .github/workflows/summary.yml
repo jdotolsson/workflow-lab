@@ -12,11 +12,25 @@ jobs:
         id: get-report
         shell: pwsh
         run: |
-          $report = "# Service Bus consolidation"
+          $report = @"
+          # Service Bus consolidation
 
-          Write-Host $report
+          ## Topics
 
-          echo "{report}={$report}" >> $Env:GITHUB_OUTPUT
+          | Topic Name  | Defined in configuration | Exist in Service bus | Service Bus Name |
+          | ----------- | :----------------------: | :------------------: | ---------------- |
+          | sbt-random  |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
+          | sbt-random2 |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
+
+          ## Explanation
+
+          Stuff
+
+          "@
+
+          $report | Out-File -Path "./report.md"
+
+          #echo "{report}={$report}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
 
       - name: Adding markdown
         shell: pwsh
@@ -25,6 +39,14 @@ jobs:
       - name: test
         shell: pwsh
         run: ${{ steps.get-report.outputs.report }}
+
+      - name: Set color
+        shell: pwsh
+        id: random-color-generator
+        run: echo "SELECTED_COLOR=green" >> $GITHUB_OUTPUT
+      - name: Get color
+        shell: pwsh
+        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
 
       # - name: Report
       #   shell: pwsh
