@@ -33,19 +33,23 @@ jobs:
 
       - name: Adding markdown
         shell: pwsh
-        run: echo '### Hello world! :rocket:' >> $Env:GITHUB_STEP_SUMMARY
+        run: |
+          $report = @'
+          ${{ env.REPORT }}
+          '@
+           echo $report >> $Env:GITHUB_STEP_SUMMARY
 
-      - name: test
-        shell: pwsh
-        run: ${{ env.REPORT }}
+      # - name: test
+      #   shell: pwsh
+      #   run: ${{ env.REPORT }}
 
-      - name: Set color
-        shell: pwsh
-        id: random-color-generator
-        run: echo "SELECTED_COLOR=green" >> $Env:GITHUB_OUTPUT
-      - name: Get color
-        shell: pwsh
-        run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+      # - name: Set color
+      #   shell: pwsh
+      #   id: random-color-generator
+      #   run: echo "SELECTED_COLOR=green" >> $Env:GITHUB_OUTPUT
+      # - name: Get color
+      #   shell: pwsh
+      #   run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
 
       # - name: Report
       #   shell: pwsh
