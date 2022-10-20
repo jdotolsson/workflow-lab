@@ -30,7 +30,7 @@ jobs:
 
           $report | Out-File -Path "./report.md"
 
-          #echo "{report}={$report}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
+          echo "report=$report" >> $Env:GITHUB_OUTPUT
 
       - name: Adding markdown
         shell: pwsh
