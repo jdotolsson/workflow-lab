@@ -28,7 +28,7 @@ jobs:
 
           "@
 
-          echo "$report" >> $Env:GITHUB_ENV
+          echo "$report<<EOF" >> $Env:GITHUB_ENV
 
       - name: Adding markdown
         shell: pwsh
