@@ -29,7 +29,7 @@ jobs:
           Stuff
           "@
 
-          echo "{report}={$report}" >> $Env:GITHUB_OUTPUT
+          echo "{report}={$report}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append
 
       - name: Adding markdown
         shell: pwsh
