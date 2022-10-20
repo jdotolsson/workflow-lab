@@ -27,8 +27,9 @@ jobs:
           Stuff
 
           "@
-
-          echo "$report<<EOF" >> $Env:GITHUB_ENV
+          echo 'REPORT<<EOF' >> $GITHUB_ENV
+          curl https://example.lab >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
 
       - name: Adding markdown
         shell: pwsh
@@ -36,7 +37,7 @@ jobs:
 
       - name: test
         shell: pwsh
-        run: ${{ env.report }}
+        run: ${{ env.REPORT }}
 
       - name: Set color
         shell: pwsh
