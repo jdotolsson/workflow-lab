@@ -27,9 +27,9 @@ jobs:
           Stuff
 
           "@
-          echo 'REPORT<<EOF' >> $GITHUB_ENV
-          curl https://example.lab >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          echo 'REPORT<<EOF' >> $Env:GITHUB_ENV
+          curl https://example.lab >> $Env:GITHUB_ENV
+          echo 'EOF' >> $Env:GITHUB_ENV
 
       - name: Adding markdown
         shell: pwsh
