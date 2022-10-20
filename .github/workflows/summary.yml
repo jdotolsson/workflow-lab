@@ -27,7 +27,7 @@ jobs:
           ## Explanation
 
           Stuff
-          @"
+          "@
 
           Write-Host "{report}={$report}" >> $GITHUB_OUTPUT
 
