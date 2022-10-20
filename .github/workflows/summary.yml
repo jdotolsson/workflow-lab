@@ -1,0 +1,37 @@
+name: Summary
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  summaryReport_dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Report
+        id: get-report
+        shell: pwsh
+        run: |
+          $report = @"
+          # Service Bus consolidation
+
+          [Go to explication to understand these tables](##-Explanation)
+
+          ## Topics
+
+          | Topic Name  | Defined in configuration | Exist in Service bus | Service Bus Name |
+          | ----------- | :----------------------: | :------------------: | ---------------- |
+          | sbt-random  |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
+          | sbt-random2 |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
+
+          ## Explanation
+
+          Stuff
+          @"
+
+          Write-Host "{report}={$report}" >> $GITHUB_OUTPUT
+
+      - name: Report
+        shell: pwsh
+        run: |
+          Write-Host ${{ steps.get-report.outputs.report }} >> $GITHUB_STEP_SUMMARY
