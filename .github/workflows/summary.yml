@@ -12,7 +12,7 @@ jobs:
         id: get-report
         shell: pwsh
         run: |
-          $report = "
+          $report = @"
           # Service Bus consolidation
 
           ## Topics
@@ -26,9 +26,9 @@ jobs:
 
           Stuff
 
-          "
+          "@
 
-          echo "report=$report" >> $Env:GITHUB_OUTPUT
+          echo "report=$report" >> $Env:GITHUB_ENV
 
       - name: Adding markdown
         shell: pwsh
@@ -36,7 +36,7 @@ jobs:
 
       - name: test
         shell: pwsh
-        run: ${{ steps.get-report.outputs.report }}
+        run: ${{ env.report }}
 
       - name: Set color
         shell: pwsh
