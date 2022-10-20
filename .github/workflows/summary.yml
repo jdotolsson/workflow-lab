@@ -29,12 +29,17 @@ jobs:
           Stuff
           "@
 
-          echo "{report}={$report}" >> $GITHUB_OUTPUT
+          echo "{report}={$report}" >> $Env:GITHUB_OUTPUT
 
       - name: Adding markdown
-        run: echo '### Hello world! :rocket:' >> $GITHUB_STEP_SUMMARY
-
-      - name: Report
         shell: pwsh
-        run: |
-          echo ${{ steps.get-report.outputs.report }} >> $GITHUB_STEP_SUMMARY
+        run: echo '### Hello world! :rocket:' >> $Env:GITHUB_STEP_SUMMARY
+
+      - name: test
+        shell: pwsh
+        run: ${{ steps.get-report.outputs.report }}
+
+      # - name: Report
+      #   shell: pwsh
+      #   run: |
+      #     echo ${{ steps.get-report.outputs.report }} >> $Env:GITHUB_STEP_SUMMARY
