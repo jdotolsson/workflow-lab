@@ -31,6 +31,9 @@ jobs:
 
           Write-Host "{report}={$report}" >> $GITHUB_OUTPUT
 
+      - name: Adding markdown
+        run: echo '### Hello world! :rocket:' >> $GITHUB_STEP_SUMMARY
+
       - name: Report
         shell: pwsh
         run: |
