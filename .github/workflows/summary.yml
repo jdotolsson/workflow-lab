@@ -12,7 +12,7 @@ jobs:
         id: get-report
         shell: pwsh
         run: |
-          $report = @"
+          $report = "
           # Service Bus consolidation
 
           ## Topics
@@ -26,9 +26,7 @@ jobs:
 
           Stuff
 
-          "@
-
-          $report | Out-File -Path "./report.md"
+          "
 
           echo "report=$report" >> $Env:GITHUB_OUTPUT
 
