@@ -12,21 +12,7 @@ jobs:
         id: get-report
         shell: pwsh
         run: |
-          $report = @"
-          # Service Bus consolidation
-
-          ## Topics
-
-          | Topic Name  | Defined in configuration | Exist in Service bus | Service Bus Name |
-          | ----------- | :----------------------: | :------------------: | ---------------- |
-          | sbt-random  |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
-          | sbt-random2 |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
-
-          ## Explanation
-
-          Stuff
-
-          "@
+          $report = "# Service Bus consolidation"
 
           Write-Host $report
 
