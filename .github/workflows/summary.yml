@@ -37,4 +37,4 @@ jobs:
       - name: Report
         shell: pwsh
         run: |
-          Write-Host ${{ steps.get-report.outputs.report }} >> $GITHUB_STEP_SUMMARY
+          echo ${{ steps.get-report.outputs.report }} >> $GITHUB_STEP_SUMMARY
