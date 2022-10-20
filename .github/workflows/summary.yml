@@ -28,7 +28,7 @@ jobs:
 
           "@
           echo 'REPORT<<EOF' >> $Env:GITHUB_ENV
-          curl https://example.lab >> $Env:GITHUB_ENV
+          $report >> $Env:GITHUB_ENV
           echo 'EOF' >> $Env:GITHUB_ENV
 
       - name: Adding markdown
