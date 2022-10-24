@@ -80,11 +80,11 @@ jobs:
       - name: Set color
         shell: pwsh
         id: random-color-generator
-        run: Write-Host "SELECTED_COLOR=green" >> $Env:GITHUB_OUTPUT
+        run: Write-Output "SELECTED_COLOR=green" >> $Env:GITHUB_OUTPUT
 
       - name: Get color
         shell: pwsh
-        run: Write-Host "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+        run: Write-Output "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
 
       # - name: Report
       #   shell: pwsh
