@@ -42,48 +42,49 @@ jobs:
   summaryReport_test:
     runs-on: ubuntu-latest
     steps:
-      - name: Get Report
-        id: get-report
-        shell: pwsh
-        run: |
-          $report = @"
-          # Service Bus consolidation
+      # - name: Get Report
+      #   id: get-report
+      #   shell: pwsh
+      #   run: |
+      #     $report = @"
+      #     Service Bus consolidation
 
-          ## Topics
+      #     # Topics
 
-          | Topic Name  | Defined in configuration | Exist in Service bus | Service Bus Name |
-          | ----------- | :----------------------: | :------------------: | ---------------- |
-          | sbt-random  |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
-          | sbt-random2 |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
+      #     | Topic Name  | Defined in configuration | Exist in Service bus | Service Bus Name |
+      #     | ----------- | :----------------------: | :------------------: | ---------------- |
+      #     | sbt-random  |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
+      #     | sbt-random2 |    :heavy_check_mark:    |         :x:          | sb-au-nonprod    |
 
-          ## Explanation
+      #     # Explanation
 
-          Stuff
+      #     Stuff
 
-          "@
-          echo 'REPORT<<EOF' >> $Env:GITHUB_ENV
-          $report >> $Env:GITHUB_ENV
-          echo 'EOF' >> $Env:GITHUB_ENV
+      #     "@
+      #     echo 'REPORT<<EOF' >> $Env:GITHUB_ENV
+      #     $report >> $Env:GITHUB_ENV
+      #     echo 'EOF' >> $Env:GITHUB_ENV
 
-      - name: Adding markdown
-        shell: pwsh
-        run: |
-          $report = @'
-          ${{ env.REPORT }}
-          '@
-           echo $report >> $Env:GITHUB_STEP_SUMMARY
+      # - name: Adding markdown
+      #   shell: pwsh
+      #   run: |
+      #     $report = @'
+      #     ${{ env.REPORT }}
+      #     '@
+      #      echo $report >> $Env:GITHUB_STEP_SUMMARY
 
       # - name: test
       #   shell: pwsh
       #   run: ${{ env.REPORT }}
 
-      # - name: Set color
-      #   shell: pwsh
-      #   id: random-color-generator
-      #   run: echo "SELECTED_COLOR=green" >> $Env:GITHUB_OUTPUT
-      # - name: Get color
-      #   shell: pwsh
-      #   run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
+      - name: Set color
+        shell: pwsh
+        id: random-color-generator
+        run: Write-Host "SELECTED_COLOR=green" >> $Env:GITHUB_OUTPUT
+
+      - name: Get color
+        shell: pwsh
+        run: Write-Host "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
 
       # - name: Report
       #   shell: pwsh
